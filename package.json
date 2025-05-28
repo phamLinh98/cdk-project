@@ -7,7 +7,7 @@
   "scripts": {
     "create-cdk": "cdk bootstrap aws://650251698778/ap-northeast-1",
     "synth": "cdk synth --app 'npx ts-node --prefer-ts-exts cdk/bin/app.ts' > output/synth.yml",
-    "deploy": "cdk deploy --app 'npx ts-node --prefer-ts-exts cdk/bin/app.ts'",
+    "deploy": "cdk deploy --app 'npx ts-node --prefer-ts-exts bin/app.ts'",
     "deploy-require-approval": "cdk deploy --app 'npx ts-node --prefer-ts-exts cdk/bin/app.ts' --require-approval never",
     "bundle-esbuild": "npm run bundle-1 && npm run bundle-2 && npm run bundle-3 && npm run bundle-4",
     "destroy": "cdk destroy --app 'npx ts-node --prefer-ts-exts cdk/bin/app.ts'"

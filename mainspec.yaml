@@ -5,14 +5,18 @@ phases:
     runtime-versions:
       nodejs: 22
     commands:
-      - echo "INSTALL PHASE"
+      - echo "Install script is running..."
+      - ls -la
+      - cat buildspec.yaml
+
+      # Cài global CDK
+      - echo "Installing dependencies"
       - npm install -g aws-cdk@2
-      - echo "Installing dependencies for cdk-project (at root)"
-      - npm install && npm install --save-dev @types/node
-      - echo "Installing dependencies for lambda-project"
-      - cd /codebuild/lambda-source
+
+      # Cài deps cho root project (cdk-project)
       - npm install
-      - cd /codebuild/input
+      - npm install --save-dev @types/node
+
       - echo "Check versions"
       - node -v
       - npm -v
@@ -22,23 +26,26 @@ phases:
 
   pre_build:
     commands:
-      - echo "PRE-BUILD PHASE"
-      - cd /codebuild/lambda-source
-      - echo "Running bundle for lambda-project"
+      - echo "Pre-build script is running..."
+      - echo "Running pre-build phase"
+
+      # Vào repo phụ lambda-project (đặt Source Identifier là lambda-project)
+      - cd /codebuild/src/lambda-project
+
+      # Cài dependencies và bundle lambda
+      - npm install
       - npm run bundle-esbuild
-      - echo "Copying bundle to cdk-project"
-      - mkdir -p /codebuild/input/lambda-bundle
-      - cp -r src/rebuild/* /codebuild/input/lambda-bundle/
-      - cd /codebuild/input
-      - echo "Transpile CDK TypeScript"
-      - npx tsc
-      - echo "CDK Bootstrap"
+
+      # Quay lại repo chính
+      - cd /codebuild/src
+
+      # Bootstrap CDK
       - cdk bootstrap aws://650251698778/ap-northeast-1
 
   build:
     commands:
-      - echo "BUILD PHASE"
-      - echo "Deploying CDK"
+      - echo "Build phase running..."
+      - echo "Deploying CDK stack"
       - npm run deploy-require-approval
 
 artifacts:

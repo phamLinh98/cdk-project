@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+    commands:
+      - sh scripts/install-script.sh
+  pre_build:
+    commands:
+      - sh scripts/pre-build-script.sh
+  build:
+    commands:
+      - sh scripts/build-script.sh

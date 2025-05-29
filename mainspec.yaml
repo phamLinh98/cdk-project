@@ -29,15 +29,15 @@ phases:
       - echo "Pre-build script is running..."
       - echo "Running pre-build phase"
 
-      # Vào repo phụ lambda-project (đặt Source Identifier là lambda-project)
-      - cd /codebuild/src/lambda-project
+      # Vào repo phụ lambda-project (identifier là lambda-project)
+      - cd /codebuild/output/src/lambda-project
 
       # Cài dependencies và bundle lambda
-      - npm install
-      - npm run bundle-esbuild
+      # - npm install
+      # - npm run bundle-esbuild
 
-      # Quay lại repo chính
-      - cd /codebuild/src
+      # Quay lại repo chính (cdk-project)
+      - cd /codebuild/input
 
       # Bootstrap CDK
       - cdk bootstrap aws://650251698778/ap-northeast-1

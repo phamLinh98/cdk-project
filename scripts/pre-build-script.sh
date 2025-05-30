@@ -1,34 +1,14 @@
 # #!/bin/bash
 
-# echo "Pre-build script is running..."
-
-# # Prebuild Pharse
-# echo "Running pre-build pharse"
-# npx tsc
-
-# echo "CDK bootstrap"
-# cdk bootstrap aws://650251698778/ap-northeast-1
-
-# echo "Bundle source code"
-# npm run bundle-esbuild
-
-
-#!/bin/bash
-
 echo "Pre-build script is running..."
+ls -la
 
-# Prebuild Phase
-echo "Running pre-build phase"
+# Copy source code from S3 bucket to src directory
+echo "Copying source code from S3 bucket to src directory"
+mkdir -p src/rebuild
+aws s3 cp s3://lambda-project-bundle-source/ src/rebuild/ --recursive
+ls -la
+ls -la src/rebuild
 
-# Vào repo lambda-project trước
-cd /codebuild/lambda-source
-
-# Bundle source code tại repo lambda-project
-npm install
-npm run bundle-esbuild
-
-# Quay lại repo chính (cdk-project) để deploy
-cd /codebuild/input
-
-echo "CDK bootstrap"
+# Bootstrap CDK
 cdk bootstrap aws://650251698778/ap-northeast-1

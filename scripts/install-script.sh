@@ -6,7 +6,8 @@ ls -la
 # Install AWS CLI and CDK
 echo "Installing dependencies"
 npm install -g aws-cdk@2
-npm install && npm install --save-dev @types/node
+npm install
+npm install --save-dev @types/node
 
 echo "Check versions"
 node -v

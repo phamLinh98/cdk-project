@@ -1,6 +1,10 @@
-import { createNewLambdaFunction } from '../custom-constracts/csv-upload-resources';
-import * as cdk from 'aws-cdk-lib';
-import { EnvLambdaSetupType, LambdaSetUpItemType, LambdaSetUpType } from './interface/lambda';
+import { createNewLambdaFunction } from "../custom-constracts/csv-upload-resources";
+import * as cdk from "aws-cdk-lib";
+import {
+  EnvLambdaSetupType,
+  LambdaSetUpItemType,
+  LambdaSetUpType,
+} from "./interface/lambda";
 
 export const lambdaListSetup = (scope: any, env: any) => {
   const envLambda = env.lambda as EnvLambdaSetupType;
@@ -16,7 +20,7 @@ export const lambdaListSetup = (scope: any, env: any) => {
       lambdaInfo.lambdaName,
       lambdaInfo.path,
       lambdaInfo.excludeFunction,
-      lambdaInfo.lambdaHander,
+      lambdaInfo.lambdaHander
     );
 
     result[key] = lambdaSetupItem;
@@ -25,6 +29,9 @@ export const lambdaListSetup = (scope: any, env: any) => {
   return result;
 };
 
-export const lambdaAddEventSource = (lambdaFunc: cdk.aws_lambda.Function, eventSource: any) => {
+export const lambdaAddEventSource = (
+  lambdaFunc: cdk.aws_lambda.Function,
+  eventSource: any
+) => {
   lambdaFunc.addEventSource(eventSource);
 };

@@ -22,12 +22,11 @@ phases:
   pre_build:
     commands:
       - echo "Pre-build script is running..."
-      - mkdir -p src/rebuild
-      - ls -la
       # Copy file rebuild.zip from S3 bucket to home directory
       - aws s3 cp s3://lambda-project-bundle-source/rebuild.zip .
+      - ls -la
       - echo "Unzipping rebuild.zip"
-      - unzip rebuild.zip -d src/rebuild
+      - unzip rebuild.zip -d .
       - ls -la
       - ls -la src/rebuild
       # Bootstrap CDK
